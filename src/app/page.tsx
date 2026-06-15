@@ -10,8 +10,7 @@ export default function Home() {
           <div className="container">
             <div className="hero-content">
               <h1 className="hero-title">
-                Looking for a Moving & Storage
-                <span className="highlight">Company in Dubai, UAE?</span>
+                Looking for a Moving & Storage <span className="highlight">Company in Dubai, UAE?</span>
               </h1>
               <p className="hero-subtitle">
                 Get a free quote in minutes for your moving, storage or relocation needs.

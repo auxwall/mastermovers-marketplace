@@ -56,7 +56,7 @@ body {
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 600px;
+  max-width: 900px;
   text-align: left;
 }
 
@@ -73,7 +73,7 @@ body {
 
 .hero-title .highlight {
   color: var(--primary-teal);
-  display: block;
+  display: inline;
 }
 
 .hero-subtitle {
@@ -262,10 +262,10 @@ body {
 }
 
 .cta-button {
-  background-color: var(--primary-teal);
+  background-color: #ff6b00;
   color: white;
   font-family: var(--font-title);
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 700;
   text-decoration: none;
   padding: 16px 40px;
@@ -273,20 +273,20 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  box-shadow: 0 10px 25px rgba(0, 112, 139, 0.3);
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
   transition: all 0.2s ease;
   text-transform: uppercase;
 }
 
 .cta-button:hover {
-  background-color: var(--dark-teal);
+  background-color: #e05e00;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 112, 139, 0.4);
+  box-shadow: 0 12px 30px rgba(255, 107, 0, 0.4);
 }
 
 .cta-button-icon {
   background: white;
-  color: var(--primary-teal);
+  color: #ff6b00;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -296,7 +296,7 @@ body {
 }
 
 .cta-button:hover .cta-button-icon {
-  color: var(--dark-teal);
+  color: #e05e00;
 }
 
 .cta-button-icon svg {
@@ -431,7 +431,7 @@ body {
     flex: 0 0 100%; /* Single column on very small screens */
   }
   .cta-button {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     padding: 14px 28px;
     width: 100%;
     justify-content: center;
