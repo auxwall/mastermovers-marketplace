@@ -3,6 +3,38 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
+      <header className="site-header">
+        <div className="container header-flex">
+          <Link href="/" className="logo-link">
+            <div className="logo-container">
+              <span className="logo-chevron">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 18L13 12L6 6M13 18L20 12L13 6" stroke="#ff6b00" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <div className="logo-text">
+                <span className="logo-main">MASTER</span>
+                <span className="logo-sub">MOVERS</span>
+              </div>
+            </div>
+          </Link>
+          <div className="header-actions">
+            <Link href="https://mastermovers.ae/contact" target="_blank" className="header-cta-btn">
+              Get Quote
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile-only Header Banner Image */}
+      <div className="mobile-hero-banner">
+        <img
+          src="/ChatGPT Image Jun 15, 2026, 05_57_57 PM.png"
+          alt="Mastermovers UAE Team & Truck"
+          className="mobile-banner-img"
+        />
+      </div>
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="hero-wrapper">
@@ -15,6 +47,7 @@ export default function Home() {
               <p className="hero-subtitle">
                 Get a free quote in minutes for your moving, storage or relocation needs.
               </p>
+
             </div>
 
             {/* Features Row */}
@@ -75,7 +108,7 @@ export default function Home() {
         <section className="services-section">
           <div className="container">
             <div className="services-grid">
-              
+
               {/* Service Card 1: Self Storage */}
               <div className="service-card">
                 <div className="service-header">
@@ -200,9 +233,9 @@ export default function Home() {
 
             {/* CTA Button Section */}
             <div className="cta-container">
-              <Link 
-                href="https://mastermovers.ae/contact" 
-                target="_blank" 
+              <Link
+                href="https://mastermovers.ae/contact"
+                target="_blank"
                 className="cta-button"
               >
                 Get a Free Quote Quickly
@@ -212,7 +245,7 @@ export default function Home() {
                   </svg>
                 </span>
               </Link>
-              
+
               <div className="cta-subtext">
                 <span>
                   <svg fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -245,6 +278,22 @@ export default function Home() {
           <p>&copy; {new Date().getFullYear()} Mastermovers UAE. All rights reserved. Original Website: <Link href="https://mastermovers.ae" target="_blank">mastermovers.ae</Link></p>
         </div>
       </footer>
+
+      {/* Sticky Bottom Mobile CTA Bar */}
+      <div className="sticky-mobile-bar">
+        <Link
+          href="https://mastermovers.ae/contact"
+          target="_blank"
+          className="sticky-mobile-btn"
+        >
+          Get a Free Quote
+          <span className="sticky-mobile-icon">
+            <svg fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+            </svg>
+          </span>
+        </Link>
+      </div>
     </>
   );
 }
