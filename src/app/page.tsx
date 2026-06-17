@@ -13,13 +13,16 @@ export default function Home() {
                 </svg>
               </span>
               <div className="logo-text">
-                <span className="logo-main">MASTER</span>
-                <span className="logo-sub">MOVERS</span>
+                <span className="logo-main">SMU</span>
+                <span className="logo-sub">SERVICE MARKET</span>
               </div>
             </div>
           </Link>
-          <div className="header-actions">
-            <Link href="https://mastermovers.ae/contact" target="_blank" className="header-cta-btn">
+          <div className="header-navigation-wrapper">
+            <Link href="/about" className="nav-link">
+              About Us
+            </Link>
+            <Link href="https://wa.me/971581627744" target="_blank" className="header-cta-btn">
               Get Quote
             </Link>
           </div>
@@ -231,10 +234,10 @@ export default function Home() {
 
             </div>
 
-            {/* CTA Button Section */}
+             {/* CTA Button Section */}
             <div className="cta-container">
               <Link
-                href="https://mastermovers.ae/contact"
+                href="https://wa.me/971581627744"
                 target="_blank"
                 className="cta-button"
               >
@@ -275,14 +278,17 @@ export default function Home() {
 
       <footer className="footer">
         <div className="container">
-          <p>&copy; {new Date().getFullYear()} Mastermovers UAE. All rights reserved. Original Website: <Link href="https://mastermovers.ae" target="_blank">mastermovers.ae</Link></p>
+          <p>&copy; {new Date().getFullYear()} Service Market UAE (SMU). All rights reserved.</p>
+          <div className="footer-links">
+            <Link href="/about">About Us</Link>
+          </div>
         </div>
       </footer>
 
       {/* Sticky Bottom Mobile CTA Bar */}
       <div className="sticky-mobile-bar">
         <Link
-          href="https://mastermovers.ae/contact"
+          href="https://wa.me/971581627744"
           target="_blank"
           className="sticky-mobile-btn"
         >

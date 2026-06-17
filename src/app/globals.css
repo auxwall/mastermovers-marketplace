@@ -534,6 +534,47 @@ body {
   text-decoration: underline;
 }
 
+.header-navigation-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--dark-teal);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.nav-link:hover {
+  color: #ff6b00;
+}
+
+.footer-links {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 500 !important;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #ff6b00 !important;
+  text-decoration: none !important;
+}
+
 /* Responsive Overrides */
 @media (max-width: 1024px) {
   .hero-wrapper {
