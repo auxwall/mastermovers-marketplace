@@ -135,6 +135,7 @@ export default function About() {
           <p>&copy; {new Date().getFullYear()} SMU. All rights reserved.</p>
           <div className="footer-links">
             <Link href="/">Home</Link>
+            <Link href="/services">Services</Link>
           </div>
         </div>
       </footer>
