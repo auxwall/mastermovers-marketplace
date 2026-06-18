@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Moving & Storage Quote Dubai | Service Market UAE (SMU)",
+  title: "Moving & Storage Quote Dubai | SMU",
   description: "Get a free quote in minutes for your moving, storage, or relocation needs in Dubai, UAE. 100% free with no obligation.",
 };
 

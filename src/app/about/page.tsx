@@ -14,7 +14,6 @@ export default function About() {
               </span>
               <div className="logo-text">
                 <span className="logo-main">SMU</span>
-                <span className="logo-sub">SERVICE MARKET</span>
               </div>
             </div>
           </Link>
@@ -42,7 +41,7 @@ export default function About() {
               About <span className="highlight" style={{ color: "var(--primary-teal)" }}>Us</span>
             </h1>
             <p className="hero-subtitle" style={{ margin: "0 auto", maxWidth: "600px" }}>
-              Learn more about Service Market UAE (SMU) and our commitment to seamless relocation.
+              Learn more about SMU and our commitment to seamless relocation.
             </p>
           </div>
         </section>
@@ -61,7 +60,7 @@ export default function About() {
                 Who We Are
               </h2>
               <p style={{ color: "#374151", fontSize: "1.1rem", lineHeight: "1.7", marginBottom: "20px" }}>
-                Service Market UAE (SMU) is Dubai's leading destination for securing quick, reliable, and premium moving and storage services. We specialize in connecting residents and businesses across the UAE with vetted, professional relocation experts who understand the nuances of hassle-free transitions.
+                SMU is Dubai's leading destination for securing quick, reliable, and premium moving and storage services. We specialize in connecting residents and businesses across the UAE with vetted, professional relocation experts who understand the nuances of hassle-free transitions.
               </p>
               
               <h2 style={{ fontFamily: "var(--font-title)", color: "var(--dark-teal)", fontSize: "1.8rem", marginBottom: "20px", marginTop: "40px" }}>
@@ -133,7 +132,7 @@ export default function About() {
 
       <footer className="footer">
         <div className="container">
-          <p>&copy; {new Date().getFullYear()} Service Market UAE (SMU). All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} SMU. All rights reserved.</p>
           <div className="footer-links">
             <Link href="/">Home</Link>
           </div>

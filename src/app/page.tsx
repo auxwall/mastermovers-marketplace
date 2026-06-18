@@ -14,14 +14,11 @@ export default function Home() {
               </span>
               <div className="logo-text">
                 <span className="logo-main">SMU</span>
-                <span className="logo-sub">SERVICE MARKET</span>
               </div>
             </div>
           </Link>
           <div className="header-navigation-wrapper">
-            <Link href="/about" className="nav-link">
-              About Us
-            </Link>
+
             <Link href="https://wa.me/971581627744" target="_blank" className="header-cta-btn">
               Get Quote
             </Link>
@@ -234,7 +231,7 @@ export default function Home() {
 
             </div>
 
-             {/* CTA Button Section */}
+            {/* CTA Button Section */}
             <div className="cta-container">
               <Link
                 href="https://wa.me/971581627744"
@@ -278,7 +275,7 @@ export default function Home() {
 
       <footer className="footer">
         <div className="container">
-          <p>&copy; {new Date().getFullYear()} Service Market UAE (SMU). All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} SMU. All rights reserved.</p>
           <div className="footer-links">
             <Link href="/about">About Us</Link>
           </div>
