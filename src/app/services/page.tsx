@@ -24,7 +24,7 @@ export default function Services() {
             <Link href="/about" className="nav-link">
               About
             </Link>
-            <Link href="https://wa.me/971581627744" target="_blank" className="header-cta-btn">
+            <Link href="/quote" className="header-cta-btn">
               Get Quote
             </Link>
           </div>

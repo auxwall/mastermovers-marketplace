@@ -18,8 +18,10 @@ export default function Home() {
             </div>
           </Link>
           <div className="header-navigation-wrapper">
-
             <Link href="https://wa.me/971581627744" target="_blank" className="header-cta-btn">
+              WhatsApp
+            </Link>
+            <Link href="/quote" className="header-cta-btn">
               Get Quote
             </Link>
           </div>
@@ -233,11 +235,7 @@ export default function Home() {
 
             {/* CTA Button Section */}
             <div className="cta-container">
-              <Link
-                href="https://wa.me/971581627744"
-                target="_blank"
-                className="cta-button"
-              >
+              <Link href="/quote" className="cta-button" >
                 Get a Free Quote Quickly
                 <span className="cta-button-icon">
                   <svg fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -21,7 +21,7 @@ export default function About() {
             <Link href="/" className="nav-link">
               Home
             </Link>
-            <Link href="https://wa.me/971581627744" target="_blank" className="header-cta-btn">
+            <Link href="/quote" className="header-cta-btn">
               Get Quote
             </Link>
           </div>
