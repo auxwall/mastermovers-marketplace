@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export default function Quote() {
   const [firstName, setFirstName] = useState("");
@@ -11,13 +12,15 @@ export default function Quote() {
   const [serviceType, setServiceType] = useState("");
   const [domesticOptions, setDomesticOptions] = useState({villa: false,apartment: false,office: false,});
   const [bhkOptions, setBhkOptions] = useState({bhk1: false,bhk2: false,bhk3: false,bhk4: false,bhk5: false,bhk6: false,});
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
   const [message, setMessage] = useState("");
 
   // Form Validation & Status
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSending, setIsSending] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submittedDetails, setSubmittedDetails] = useState({ name: "", email: "", mobile: "", serviceType: "", movingType: "", villaSize: "", });
+  const [submittedDetails, setSubmittedDetails] = useState({ name: "", email: "", mobile: "", serviceType: "", movingType: "", villaSize: "", origin: "", destination: "" });
 
   const handleDomesticCheckboxChange = (option: "villa" | "apartment" | "office") => {
     setDomesticOptions((prev) => {
@@ -28,10 +31,8 @@ export default function Quote() {
         office: option === "office" ? !isCurrentlyChecked : false,
       };
       
-      // If Villa is no longer checked, clear BHK choices
-      if (!updated.villa) {
-        setBhkOptions({ bhk1: false, bhk2: false, bhk3: false, bhk4: false, bhk5: false, bhk6: false,});
-      }
+      // Reset BHK selections when changing property type
+      setBhkOptions({ bhk1: false, bhk2: false, bhk3: false, bhk4: false, bhk5: false, bhk6: false });
       return updated;
     });
   };
@@ -92,10 +93,11 @@ export default function Quote() {
     if (!serviceType) {
       newErrors.serviceType = "Please select a service type";
     }
-    if (serviceType === "Domestic Move" && domesticOptions.villa) {
+
+    if (serviceType === "Domestic Move" && (domesticOptions.villa || domesticOptions.apartment)) {
       const hasSelectedBhk = Object.values(bhkOptions).some((checked) => checked);
       if (!hasSelectedBhk) {
-        newErrors.bhkOptions = "Please select a villa size";
+        newErrors.bhkOptions = domesticOptions.villa ? "Please select a villa size" : "Please select an apartment size";
       }
     }
 
@@ -117,12 +119,19 @@ export default function Quote() {
     const selectedBhkSizes = Object.entries(bhkOptions)
       .filter(([_, checked]) => checked)
       .map(([key]) => {
-        if (key === "bhk1") return "1 BHK";
-        if (key === "bhk2") return "2 BHK";
-        if (key === "bhk3") return "3 BHK";
-        if (key === "bhk4") return "4 BHK";
-        if (key === "bhk5") return "5 BHK";
-        if (key === "bhk6") return "6 BHK";
+        if (domesticOptions.apartment) {
+          if (key === "bhk1") return "1 BHK";
+          if (key === "bhk2") return "2 BHK";
+          if (key === "bhk3") return "3 BHK";
+          if (key === "bhk4") return "4 BHK";
+          if (key === "bhk5") return "5 BHK";
+          if (key === "bhk6") return "6 BHK";
+        } else if (domesticOptions.villa) {
+          if (key === "bhk1") return "1 Bedroom";
+          if (key === "bhk2") return "2 Bedrooms";
+          if (key === "bhk3") return "3 Bedrooms";
+          if (key === "bhk4") return "4 Bedrooms";
+        }
         return "";
       })
       .filter(Boolean)
@@ -132,12 +141,12 @@ export default function Quote() {
       const response = await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json", },
-        body: JSON.stringify({ firstName, secondName, email, mobile, serviceType, movingType: selectedMovingTypes, villaSize: selectedBhkSizes, message, }),
+        body: JSON.stringify({ firstName, secondName, email, mobile, serviceType, movingType: selectedMovingTypes, villaSize: selectedBhkSizes, origin, destination, message, }),
       });
 
       const result = await response.json();
       if (response.ok && result.success) {
-        setSubmittedDetails({ name: `${firstName} ${secondName || ""}`.trim(), email, mobile, serviceType, movingType: selectedMovingTypes, villaSize: selectedBhkSizes, });
+        setSubmittedDetails({ name: `${firstName} ${secondName || ""}`.trim(), email, mobile, serviceType, movingType: selectedMovingTypes, villaSize: selectedBhkSizes, origin, destination });
         setIsSubmitted(true);
 
         // Clear all form inputs
@@ -148,6 +157,8 @@ export default function Quote() {
         setServiceType("");
         setDomesticOptions({ villa: false, apartment: false, office: false });
         setBhkOptions({ bhk1: false, bhk2: false, bhk3: false, bhk4: false, bhk5: false, bhk6: false });
+        setOrigin("");
+        setDestination("");
         setMessage("");
       } else {
         alert("Failed to submit request: " + (result.message || "Please try again."));
@@ -162,6 +173,41 @@ export default function Quote() {
 
   return (
     <>
+      <header className="site-header">
+        <div className="container header-flex">
+          <Link href="/" className="logo-link">
+            <div className="logo-container">
+              <span className="logo-chevron">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 18L13 12L6 6M13 18L20 12L13 6" stroke="#ff6b00" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <div className="logo-text">
+                <span className="logo-main">SMU</span>
+              </div>
+            </div>
+          </Link>
+          <div className="header-navigation-wrapper">
+            <Link href="/" className="nav-link">
+              Home
+            </Link>
+            <Link href="/about" className="nav-link">
+              About
+            </Link>
+            <Link href="/services" className="nav-link">
+              Services
+            </Link>
+            <Link href="https://wa.me/971581627744" target="_blank" className="header-cta-btn whatsapp-btn">
+              <span className="btn-text">WhatsApp</span>
+              <span className="btn-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.739-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.859-4.42 9.863-9.864.002-2.637-1.019-5.114-2.877-6.973-1.858-1.859-4.331-2.88-6.969-2.881-5.437 0-9.86 4.42-9.864 9.864-.001 1.73.457 3.419 1.32 4.933l-.994 3.635 3.72-.975zM17.18 14.53c-.305-.153-1.802-.889-2.083-.99-.28-.102-.485-.153-.688.153-.203.305-.785.99-.962 1.192-.177.203-.355.228-.66.076-.305-.153-1.287-.474-2.451-1.511-.906-.807-1.517-1.805-1.695-2.11-.178-.305-.019-.47.133-.621.137-.136.305-.356.457-.534.153-.178.203-.305.305-.51.102-.203.05-.381-.025-.533-.076-.153-.688-1.658-.942-2.27-.247-.597-.5-.516-.688-.526-.178-.008-.381-.01-.584-.01-.203 0-.533.076-.813.381-.28.305-1.066 1.042-1.066 2.541 0 1.498 1.092 2.946 1.244 3.149.153.203 2.15 3.284 5.207 4.605.727.314 1.294.502 1.737.643.73.232 1.393.2 1.917.12.584-.087 1.802-.736 2.056-1.447.254-.71.254-1.32.178-1.447-.076-.127-.28-.203-.585-.356z"/>
+                </svg>
+              </span>
+            </Link>
+          </div>
+        </div>
+      </header>
       <main className="flex-1">
         <div className="quote-container">
           <div className="quote-card">
@@ -197,12 +243,18 @@ export default function Quote() {
                       </>
                     )}
                     
-                    {submittedDetails.serviceType === "Domestic Move" && submittedDetails.movingType.toLowerCase().includes("villa") && (
+                    {submittedDetails.serviceType === "Domestic Move" && (submittedDetails.movingType.toLowerCase().includes("villa") || submittedDetails.movingType.toLowerCase().includes("apartment")) && (
                       <>
-                        <span className="summary-label">Villa Size:</span>
+                        <span className="summary-label">{submittedDetails.movingType.toLowerCase().includes("villa") ? "Villa" : "Apartment"} Size:</span>
                         <span className="summary-value">{submittedDetails.villaSize}</span>
                       </>
                     )}
+
+                    <span className="summary-label">Origin:</span>
+                    <span className="summary-value">{submittedDetails.origin}</span>
+
+                    <span className="summary-label">Destination:</span>
+                    <span className="summary-value">{submittedDetails.destination}</span>
                   </div>
                 </div>
                 
@@ -273,6 +325,18 @@ export default function Quote() {
                     {errors.email && <span className="error-text">{errors.email}</span>}
                   </div>
 
+                  {/* Origin */}
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="origin">Moving From</label>
+                    <input type="text" id="origin" value={origin} onChange={(e) => setOrigin(e.target.value)} placeholder="e.g. Area, Street, City" className="form-input"/>
+                  </div>
+
+                  {/* Destination */}
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="destination">Moving To</label>
+                    <input type="text" id="destination" value={destination} onChange={(e) => setDestination(e.target.value)} placeholder="e.g. Area, Street, City" className="form-input"/>
+                  </div>
+
                   {/* Service Dropdown */}
                   <div className="form-group full-width">
                     <label className="form-label" htmlFor="serviceType">What service do you need? <span className="required-star">*</span></label>
@@ -305,10 +369,10 @@ export default function Quote() {
                       </label>
                     </div>
 
-                    {/* Conditional Villa BHK Options */}
-                    {domesticOptions.villa && (
+                    {/* Conditional Apartment BHK Options */}
+                    {domesticOptions.apartment && (
                       <div className="conditional-section" style={{ borderLeftColor: "#ff6b00", marginTop: "16px", marginBottom: "0" }}>
-                        <h3 className="conditional-title">Select Villa Size: <span className="required-star">*</span></h3>
+                        <h3 className="conditional-title">Select Apartment Size: <span className="required-star">*</span></h3>
                         <div className="checkbox-grid" style={{ marginBottom: errors.bhkOptions ? "8px" : "0" }}>
                           <label className={`checkbox-card ${bhkOptions.bhk1 ? "checked" : ""}`}>
                             <input type="checkbox" checked={bhkOptions.bhk1} onChange={() => handleBhkCheckboxChange("bhk1")} />
@@ -333,6 +397,32 @@ export default function Quote() {
                           <label className={`checkbox-card ${bhkOptions.bhk6 ? "checked" : ""}`}>
                             <input type="checkbox" checked={bhkOptions.bhk6} onChange={() => handleBhkCheckboxChange("bhk6")} />
                             <span className="checkbox-label">6 BHK</span>
+                          </label>
+                        </div>
+                        {errors.bhkOptions && <span className="error-text">{errors.bhkOptions}</span>}
+                      </div>
+                    )}
+
+                    {/* Conditional Villa BHK Options */}
+                    {domesticOptions.villa && (
+                      <div className="conditional-section" style={{ borderLeftColor: "#ff6b00", marginTop: "16px", marginBottom: "0" }}>
+                        <h3 className="conditional-title">Select Villa Size: <span className="required-star">*</span></h3>
+                        <div className="checkbox-grid" style={{ marginBottom: errors.bhkOptions ? "8px" : "0" }}>
+                          <label className={`checkbox-card ${bhkOptions.bhk1 ? "checked" : ""}`}>
+                            <input type="checkbox" checked={bhkOptions.bhk1} onChange={() => handleBhkCheckboxChange("bhk1")} />
+                            <span className="checkbox-label">1 Bedroom</span>
+                          </label>
+                          <label className={`checkbox-card ${bhkOptions.bhk2 ? "checked" : ""}`}>
+                            <input type="checkbox" checked={bhkOptions.bhk2} onChange={() => handleBhkCheckboxChange("bhk2")} />
+                            <span className="checkbox-label">2 Bedrooms</span>
+                          </label>
+                          <label className={`checkbox-card ${bhkOptions.bhk3 ? "checked" : ""}`}>
+                            <input type="checkbox" checked={bhkOptions.bhk3} onChange={() => handleBhkCheckboxChange("bhk3")} />
+                            <span className="checkbox-label">3 Bedrooms</span>
+                          </label>
+                          <label className={`checkbox-card ${bhkOptions.bhk4 ? "checked" : ""}`}>
+                            <input type="checkbox" checked={bhkOptions.bhk4} onChange={() => handleBhkCheckboxChange("bhk4")} />
+                            <span className="checkbox-label">4 Bedrooms</span>
                           </label>
                         </div>
                         {errors.bhkOptions && <span className="error-text">{errors.bhkOptions}</span>}
@@ -365,16 +455,7 @@ export default function Quote() {
         </div>
       </main>
 
-      <footer className="footer">
-        <div className="container">
-          <p>&copy; {new Date().getFullYear()} SMU. All rights reserved.</p>
-          <div className="footer-links">
-            <Link href="/">Home</Link>
-            <Link href="/about">About Us</Link>
-            <Link href="/services">Services</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
