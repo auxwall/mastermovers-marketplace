@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { firstName, secondName, email, mobile, serviceType, movingType, villaSize, message, } = body;
+    const { firstName, secondName, email, mobile, serviceType, movingType, villaSize, origin, destination, message, } = body;
 
     // Server-side basic validation
     if (!firstName || !email || !mobile || !serviceType) {
@@ -29,7 +29,9 @@ Email: ${email}
 Mobile: ${mobile}
 Service Type: ${serviceType}
 ${serviceType === "Domestic Move" ? `Moving Type: ${movingType || "N/A"}` : ""}
-${serviceType === "Domestic Move" && movingType?.toLowerCase().includes("villa") ? `Villa Size: ${villaSize || "N/A"}` : ""}
+${serviceType === "Domestic Move" && (movingType?.toLowerCase().includes("villa") || movingType?.toLowerCase().includes("apartment")) ? `${movingType?.toLowerCase().includes("villa") ? "Villa" : "Apartment"} Size: ${villaSize || "N/A"}` : ""}
+Origin (Moving From): ${origin || "N/A"}
+Destination (Moving To): ${destination || "N/A"}
 
 Additional Message:
 ${message || "No additional message."}
